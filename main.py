@@ -3,9 +3,27 @@
 ### Mini Project 2
 
 import pandas as pd
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+# Create charts folder if it does not exists
+charts = Path('charts')
+if not charts.exists():
+    Path(r'charts').mkdir()
+
+df = pd.read_excel("./data/retail_sales_dataset.xlsx", index_col=0)
+
+gender = df[['Gender']].value_counts()
+males = gender["M"]
+females = gender["F"]
 
 
-
+plt.barh(['M', 'F'], [males, females], align='center', color=['b', 'm'])
+plt.xlabel('Gender')
+plt.ylabel('Count')
+plt.title('Number of retail sales per Gender')
+plt.savefig(str(charts / 'gender_count.png'))
+plt.show()
 
 
 # This project will be using Pandas dataframes. This isn't intended to be full blown data science project. The goal here is to come up with some question and then see what API or datasets you can use to get the information needed to answer that question. This will get you familar with working with datasets and asking questions, researching APIs and gathering datasets. If you get stuck here, please email me!
